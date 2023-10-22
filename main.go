@@ -41,7 +41,7 @@ func main() {
 	var Result string
 	Result = "Зачем переплачивать, если и то и то говно?"
 
-	fmt.Printf(Moskvich)
-	fmt.Printf(Porshe)
-	fmt.Printf(Result)
+	fmt.Println(Moskvich)
+	fmt.Println(Porshe)
+	fmt.Println(Result)
 }
