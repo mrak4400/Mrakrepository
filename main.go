@@ -40,9 +40,7 @@ func main() {
 
 	var Result string
 	Result = "Зачем переплачивать, если и то и то говно?"
-}
 
-func main() {
 	fmt.Printf(Moskvich)
 	fmt.Printf(Porshe)
 	fmt.Printf(Result)
