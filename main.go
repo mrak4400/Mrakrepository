@@ -5,15 +5,17 @@ import (
 )
 
 type car struct {
-	body, wheel, salon, color       string
-	cost, age, owners, Enginevolume int32
-	Shit                            bool
+	body, wheel, color        string
+	age, owners, Enginevolume float64
+	Shit                      bool
+	cost                      cost
+	salon                     salon
 }
 type salon struct {
 	salcolor, salmaterial string
 }
 type cost struct {
-	basecomp, maxcpomp int32
+	basecomp, maxcpomp float64
 }
 
 func main() {
