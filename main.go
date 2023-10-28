@@ -1,49 +1,48 @@
-package Mrakrepository
+package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 )
 
-type car struct {
-	body, wheel, color        string
-	age, owners, Enginevolume float64
-	Shit                      bool
-	cost                      cost
-	salon                     salon
+type Main struct {
+	temp     float64 `json:"temp"`
+	humidity float64 `json:"humidity"`
 }
-type salon struct {
-	salcolor, salmaterial string
+
+func (cp *Main) grads() float64 {
+	fmt.Println("Gradusy :", cp.temp)
+	return cp.temp
 }
-type cost struct {
-	basecomp, maxcpomp float64
+func (cp *Main) hum() float64 {
+	fmt.Println("Vlagnost :", cp.humidity)
+	return cp.humidity
 }
 
 func main() {
-	var Moskvich car
-	Moskvich.body = "соетская сталь"
-	Moskvich.wheel = "леворукая"
-	Moskvich.salon = salon{salcolor: "Красный", salmaterial: "кожа"}
-	Moskvich.age = 15
-	Moskvich.owners = 4
-	Moskvich.Enginevolume = 2.0
-	Moskvich.Shit = false
-	Moskvich.cost = cost{basecomp: 12000, maxcpomp: 25000}
+	url := "https://api.openweathermap.org/data/2.5/weather?id=1496747&appid=39967919ab50999a0969c0942b3bc0b5"
 
-	var Porshe car
-	Porshe.body = "Алюмишка"
-	Porshe.salon = salon{salcolor: "Черный", salmaterial: "кожа"}
-	Porshe.wheel = "Леврорукая"
-	Porshe.color = "черная"
-	Porshe.cost = cost{basecomp: 125000, maxcpomp: 25000}
-	Porshe.age = 5
-	Porshe.owners = 2
-	Porshe.Enginevolume = 3.0
-	Porshe.Shit = false
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	var Result string
-	Result = "Зачем переплачивать, если и то и то говно?"
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	fmt.Println(Moskvich)
-	fmt.Println(Porshe)
-	fmt.Println(Result)
+	result := &Main{}
+
+	err = json.Unmarshal(body, result)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	r := result.grads()
+	r2 := result.hum()
+	fmt.Println(r, r2)
+
 }
